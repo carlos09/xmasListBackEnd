@@ -222,11 +222,14 @@ paths:
                   example: "pass123"
                 acceptTerms:
                   type: boolean
+                wishListId:
+                  type: string
+                  example: 51872eca5e
               required:
                 - title
                 - firstName
                 - lastName
-                - email
+                - email 
                 - password
                 - confirmPassword
                 - acceptTerms

@@ -21,7 +21,8 @@ function model(sequelize) {
         isVerified: {
             type: DataTypes.VIRTUAL,
             get() { return !!(this.verified || this.passwordReset); }
-        }
+        },
+        wishListId: { type: DataTypes.STRING, allowNull: false }
     };
 
     const options = {

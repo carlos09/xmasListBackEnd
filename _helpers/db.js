@@ -18,10 +18,12 @@ async function initialize() {
     // init models and add them to the exported db object
     db.Account = require('../accounts/account.model')(sequelize);
     db.RefreshToken = require('../accounts/refresh-token.model')(sequelize);
+    db.WishListItem = require('../wish-list/wish-list.model')(sequelize)
 
     // define relationships
-    db.Account.hasMany(db.RefreshToken, { onDelete: 'CASCADE' });
+    db.Account.hasMany(db.RefreshToken, db.wishListItem, { onDelete: 'CASCADE' });
     db.RefreshToken.belongsTo(db.Account);
+    db.WishListItem.belongsTo(db.Account);
     
     // sync all models with database
     await sequelize.sync();

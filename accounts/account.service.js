@@ -91,6 +91,7 @@ async function register(params, origin) {
     const isFirstAccount = (await db.Account.count()) === 0;
     account.role = isFirstAccount ? Role.Admin : Role.User;
     account.verificationToken = randomTokenString();
+    account.wishListId = crypto.randomBytes(8).toString("hex");
 
     // hash password
     account.passwordHash = await hash(params.password);
@@ -171,6 +172,8 @@ async function create(params) {
 
     // hash password
     account.passwordHash = await hash(params.password);
+    account.wishListId = crypto.randomBytes(8).toString("hex");
+    console.log('accout wishILstId: ', account.wishListId);
 
     // save account
     await account.save();
@@ -242,8 +245,9 @@ function randomTokenString() {
 }
 
 function basicDetails(account) {
-    const { id, title, firstName, lastName, email, role, created, updated, isVerified } = account;
-    return { id, title, firstName, lastName, email, role, created, updated, isVerified };
+    console.log('basicDetails: ', account);
+    const { id, title, firstName, lastName, email, role, created, updated, isVerified, wishListId } = account;
+    return { id, title, firstName, lastName, email, role, created, updated, isVerified, wishListId };
 }
 
 async function sendVerificationEmail(account, origin) {
