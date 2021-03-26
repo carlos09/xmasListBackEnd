@@ -7,10 +7,26 @@ const Role = require('_helpers/role');
 const wishListService = require('./wish-list.service');
 
 router.get('/wishlist/items/:wishListId', authorize(), getWishListItems);
-router.post('/wishlist/:wishListId', authorize(), addWishListItem);
+router.post('/wishlist/:wishListId', authorize(), createSchema, addWishListItem);
 router.delete('/wishlist/items/:id', authorize(), _deleteWishListItem);
 
 module.exports = router;
+
+function createSchema(req, res, next) {
+    console.log('createschema()');
+    const schema = Joi.object({
+        wishListId: Joi.string().required(),
+        name: Joi.string().required(),
+        price: Joi.number().required(),
+        link: Joi.string().required(),
+        message: Joi.string(),
+        hasBeenPurchased: Joi.boolean(),
+        purchasedBy: Joi.string(),
+        created: Joi.date().required(),
+        updated: Joi.date()
+    });
+    validateRequest(req, next, schema);
+}
 
 function addWishListItem(req, res, next) {
     console.log('made it in here');

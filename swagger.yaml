@@ -686,3 +686,71 @@ components:
               message:
                 type: string
                 example: "Not Found"
+  /wish-list/{wishListId}:
+    parameters:
+      - in: path
+        name: wishListId
+        description: Wish list id
+        required: true
+        example: "5eb12e197e"
+        schema:
+          type: string
+    post:
+      summary: Post a wish list item
+      description: Add an item
+      operationId: add item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                wishListId:
+                  type: string
+                  example: "51872eca5e"
+                name:
+                  type: string
+                  example: "Dress"
+                price:
+                  type: float
+                  example: "32.49"
+                link:
+                  type: string
+                  example: "http://jcpenney.com"
+                message:
+                  type: string
+                  example: "Try to find on sale"
+                hasBeenPurchased:
+                  type: boolean
+                  example: false
+                purchasedBy:
+                  type: string
+                  example: "51872eca5ejzkd73jskd93"
+                created:
+                  type: Date
+                  example: ""
+                updated:
+                  type: Date
+                  example: ""
+              required:
+                - wishListId
+                - name
+                - price
+                - link 
+                - message
+                - hasBeenPurchased
+                - purchasedBy
+                - created
+                - updated
+      responses:
+        "200":
+          description: Item was sucessfully added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Item added"
